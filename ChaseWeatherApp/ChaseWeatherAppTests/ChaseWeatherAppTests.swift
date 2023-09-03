@@ -7,13 +7,13 @@
 
 import XCTest
 import Combine
-@testable import ChaseWeatherApp // Replace with your actual app module name
+@testable import ChaseWeatherApp
 import CoreLocation
 
 class GetWeatherAPIOperationTests: XCTestCase, CLLocationManagerDelegate {
     
     var apiOperation: GetWeatherAPIOperation!
-    var mockURLSession: URLSession! // Replace MockURLSession with URLSession
+    var mockURLSession: URLSession!
     private var cancellables = Set<AnyCancellable>() // Declare cancellables here
     var viewController: WeatherViewController!
     let navigationController = UINavigationController()
@@ -50,8 +50,6 @@ class GetWeatherAPIOperationTests: XCTestCase, CLLocationManagerDelegate {
         let city = "New York"
         let expectation = XCTestExpectation(description: "Weather data fetched successfully")
         
-        // Configure your mockURLSession to return expected data and response
-        
         apiOperation.fetchDaySummary(for: city)
             .sink(receiveCompletion: { completion in
                 switch completion {
@@ -69,14 +67,12 @@ class GetWeatherAPIOperationTests: XCTestCase, CLLocationManagerDelegate {
         wait(for: [expectation], timeout: 5.0)
     }
     
-    // Test fetchDaySummary(_ latitude:longitude:)
     func testFetchDaySummaryForCoordinates() {
         let latitude = 40.7128
         let longitude = -75.0060
         let expectation = XCTestExpectation(description: "Weather data for coordinates fetched successfully")
         
         // Configure your mockURLSession to return a non-200 HTTP status code
-//        mockURLSession = MockURLSession( // Use a non-success status code
         
         let cancellable = apiOperation.fetchDaySummary(latitude, longitude)
             .sink(receiveCompletion: { completion in
@@ -84,14 +80,12 @@ class GetWeatherAPIOperationTests: XCTestCase, CLLocationManagerDelegate {
                 case .finished:
                     break // Test succeeded
                 case .failure(let error):
-                    // This is the failure scenario, so the test will pass if it reaches here
+
                     // XCTFail("Error: \(error)") // Test failed
                     break // Test succeeded
                 }
                 expectation.fulfill()
             }, receiveValue: { weatherData in
-                // This block should not be reached in the failure scenario
-                // You can leave it empty
             })
         
         // Store the cancellable to avoid premature deallocation
@@ -143,16 +137,11 @@ class GetWeatherAPIOperationTests: XCTestCase, CLLocationManagerDelegate {
         }).store(in: &cancellables)
     }
 
-
     func testThatTheWeatherPropertyIsInitializedAfterCallingSuperInit() {
         let weatherViewController = WeatherViewController(weatherViewModel: WeatherViewModel(weatherService: GetWeatherAPIOperation(), weatherManagerUsingDataTask: WeatherManagerUsingDataTask()), coordinator: WeatherCoordinator(navigationController: navigationController))
 
         XCTAssertNotNil(weatherViewController.weather)
     }
-    
-
-    
-
 
 }
 
@@ -195,17 +184,14 @@ extension APIError: Equatable {
 
 class MockWeatherViewModel: WeatherViewModel, WeatherInfo {
     func fetchDaySummary(for city: String) -> AnyPublisher<WeatherData, APIError> {
-        // You should return a publisher with mock data here
-        // For testing purposes, you can create a mock publisher using Just or Future.
-        // Example using Just:
+
         return Just(WeatherData(name: "London", main: Main(temp: 0.1, temp_min: 0.1, temp_max: 0.1), weather: [Weather(description: "test", id: 22)]))
             .setFailureType(to: APIError.self)
             .eraseToAnyPublisher()
     }
     
     func fetchDaySummary(_ latitude: Double, _ longitude: Double) -> AnyPublisher<WeatherData, APIError> {
-        // You should return a publisher with mock data here as well
-        // Similar to the above method, create a mock publisher using Just or Future.
+
         return Just(WeatherData(name: "London", main: Main(temp: 0.1, temp_min: 0.1, temp_max: 0.1), weather: [Weather(description: "test", id: 22)]))
             .setFailureType(to: APIError.self)
             .eraseToAnyPublisher()
@@ -220,7 +206,6 @@ class MockWeatherViewModel: WeatherViewModel, WeatherInfo {
         // Update the tracking property with the provided city
         getWeatherForCityCalledWith = city
         
-        // You should return a mock publisher here for testing
         return Just(WeatherData(name: "London", main: Main(temp: 0.1, temp_min: 0.1, temp_max: 0.1), weather: [Weather(description: "test", id: 22)]))
             .setFailureType(to: APIError.self)
             .eraseToAnyPublisher()
@@ -237,7 +222,6 @@ class MockWeatherViewModel: WeatherViewModel, WeatherInfo {
             .eraseToAnyPublisher()
     }
     
-    // Implement other methods as needed for your tests
 }
 
 class TestWeatherViewController: WeatherViewController {
@@ -248,7 +232,7 @@ class TestWeatherViewController: WeatherViewController {
         let rootView = UIView()
         rootView.backgroundColor = .white
         
-        // Create and configure your testSearchTextField
+        // Create and configure testSearchTextField
         testSearchTextField = UITextField()
         rootView.addSubview(testSearchTextField)
         
@@ -256,4 +240,3 @@ class TestWeatherViewController: WeatherViewController {
         view = rootView
     }
 }
-

@@ -51,8 +51,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // The app is about to terminate (close)
         // Set the UserDefault when the user exits the app
-//        let reusableUserDefaults = ReusableUserDefaults()
-//        reusableUserDefaults.set(value: true, forKey: UserDefaultKeys.firstRequestInSession)
     }
 }
 
