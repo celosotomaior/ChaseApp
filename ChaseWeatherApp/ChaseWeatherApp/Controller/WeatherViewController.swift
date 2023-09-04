@@ -31,18 +31,18 @@ class WeatherViewController: UIViewController {
     @ObservedObject var weather: WeatherViewModel
     var coordinator: WeatherCoordinator?
     let locationManager = CLLocationManager()
-
+    
     init(weatherViewModel: WeatherViewModel, coordinator: WeatherCoordinator) {
         self.weather = weatherViewModel
         super.init(nibName: nil, bundle: nil)
         if reusableUserDefaults.get(forKey: UserDefaultKeys.firstRequestInSessionKey) == nil {
             reusableUserDefaults.set(value: true, forKey: UserDefaultKeys.firstRequestInSessionKey)
         }
-       
+        
         self.coordinator = coordinator // Initialize 'weather' property AFTER calling super.init()
         locationManager.delegate = self
     }
-
+    
     required init?(coder: NSCoder) {
         self.weather = WeatherViewModel(weatherService: GetWeatherAPIOperation(), weatherManagerUsingDataTask: WeatherManagerUsingDataTask())
         super.init(coder: coder)
@@ -51,17 +51,17 @@ class WeatherViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Check if the app has been launched before.
         if (reusableUserDefaults.get(forKey: UserDefaultKeys.hasLaunchedBefore) == false) {
             // Set the combineSwitcherKey value to true.
             reusableUserDefaults.set(value: true, forKey: UserDefaultKeys.combineSwitcherKey)
-
+            
             // Set the hasLaunchedBefore value to true.
             reusableUserDefaults.set(value: true, forKey: UserDefaultKeys.hasLaunchedBefore)
         }
         
-
+        
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
@@ -72,7 +72,7 @@ class WeatherViewController: UIViewController {
         weather.delegate = self
     }
     
-
+    
     @IBSegueAction func addSwiftUIView(_ coder: NSCoder) -> UIViewController? {
         coordinator?.navigateToSwiftUIView(coder: coder)
     }
@@ -86,7 +86,7 @@ extension WeatherViewController: UITextFieldDelegate {
     @IBAction func searchPressed(_ sender: UIButton) {
         
         searchTextField.endEditing(true)
-       
+        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -106,7 +106,7 @@ extension WeatherViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         if let city = searchTextField.text {
-           
+            
             if UserDefaultKeys.combineSwitcherValue == true {
                 self.weather.getWeather(for: city)
             } else {
@@ -116,8 +116,6 @@ extension WeatherViewController: UITextFieldDelegate {
         
         searchTextField.text = ""
     }
-    
-  
 }
 
 //MARK: - WeatherManagerDelegate
@@ -133,7 +131,7 @@ extension WeatherViewController: WeatherViewModelDelegate {
             self.cityLabel.text = weather.cityName
         }
     }
-
+    
     
     func didFailWithError(error: Error) {
         print(error)
@@ -151,7 +149,7 @@ extension WeatherViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager,
                          didFailWithError error: Error){
-
+        
         
     }
     
@@ -159,7 +157,7 @@ extension WeatherViewController: CLLocationManagerDelegate {
                          didUpdateLocations locations: [CLLocation]) {
         if let lastLocation = locations.last, reusableUserDefaults.get(forKey: UserDefaultKeys.firstRequestInSessionKey) == false {
             locationManager.stopUpdatingLocation()
-
+            
             if UserDefaultKeys.combineSwitcherValue == true {
                 self.weather.getWeather(latitude: lastLocation.coordinate.latitude, longitude: lastLocation.coordinate.longitude)
                 return
@@ -168,11 +166,11 @@ extension WeatherViewController: CLLocationManagerDelegate {
                 return
             }
         }
-     
-            reusableUserDefaults.set(value: false, forKey: UserDefaultKeys.firstRequestInSessionKey)
-            let city: String? = reusableUserDefaults.get(forKey: UserDefaultKeys.city as String)
-            
-            self.weather.getWeather(for: city ?? "")
+        
+        reusableUserDefaults.set(value: false, forKey: UserDefaultKeys.firstRequestInSessionKey)
+        let city: String? = reusableUserDefaults.get(forKey: UserDefaultKeys.city as String)
+        
+        self.weather.getWeather(for: city ?? "")
         
     }
 }

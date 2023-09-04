@@ -5,7 +5,7 @@ struct TemperatureSwiftUIView: View {
     var body: some View {
         HStack(alignment: .top) {
             Text(String(format: "%.f", temperature))
-                    .font(.system(size: 100, weight: .bold, design: .rounded))
+                .font(.system(size: 100, weight: .bold, design: .rounded))
             Text("℃")
                 .font(.system(size: 100, weight: .light, design: .rounded))
         }

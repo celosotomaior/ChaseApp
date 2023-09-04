@@ -12,9 +12,9 @@ class GetWeatherAPIOperationTests: XCTestCase, CLLocationManagerDelegate {
     let navigationController = UINavigationController()
     
     // Create a mock weather view model for testing
-  
+    
     // Create the WeatherViewController with the mockWeatherViewModel
-
+    
     var mockWeatherViewModel = MockWeatherViewModel(weatherService: GetWeatherAPIOperation(), weatherManagerUsingDataTask: WeatherManagerUsingDataTask())
     override func setUp() {
         super.setUp()
@@ -22,7 +22,7 @@ class GetWeatherAPIOperationTests: XCTestCase, CLLocationManagerDelegate {
         apiOperation = GetWeatherAPIOperation(session: mockURLSession)
         
         viewController = WeatherViewController(weatherViewModel: MockWeatherViewModel(weatherService: GetWeatherAPIOperation(), weatherManagerUsingDataTask: WeatherManagerUsingDataTask()), coordinator: WeatherCoordinator(navigationController: UINavigationController()))
-
+        
     }
     
     override func tearDown() {
@@ -33,7 +33,7 @@ class GetWeatherAPIOperationTests: XCTestCase, CLLocationManagerDelegate {
         super.tearDown()
         super.tearDown()
     }
-
+    
     // Test fetchDaySummary(for city:)
     func testFetchDaySummaryForCity() {
         // Implement a test for fetchDaySummary(for city:)
@@ -73,7 +73,7 @@ class GetWeatherAPIOperationTests: XCTestCase, CLLocationManagerDelegate {
                 case .finished:
                     break // Test succeeded
                 case .failure(let error):
-
+                    
                     // XCTFail("Error: \(error)") // Test failed
                     break // Test succeeded
                 }
@@ -90,10 +90,10 @@ class GetWeatherAPIOperationTests: XCTestCase, CLLocationManagerDelegate {
         // Given
         let operation = GetWeatherAPIOperation()
         let city = "London"
-
+        
         // When
         let publisher = operation.fetchDaySummary(for: city)
-
+        
         // Then
         publisher.sink(receiveCompletion: { completion in
             switch completion {
@@ -107,15 +107,15 @@ class GetWeatherAPIOperationTests: XCTestCase, CLLocationManagerDelegate {
             XCTAssertGreaterThan(weather.main.temp, 0)
         }).store(in: &cancellables)
     }
-
+    
     func testFetchWeatherDataForInvalidCity() throws {
         // Given
         let operation = GetWeatherAPIOperation()
         let city = "InvalidCity"
-
+        
         // When
         let publisher = operation.fetchDaySummary(for: city)
-
+        
         // Then
         publisher.sink(receiveCompletion: { completion in
             switch completion {
@@ -129,19 +129,19 @@ class GetWeatherAPIOperationTests: XCTestCase, CLLocationManagerDelegate {
             XCTFail("Expected to fail to fetch weather data")
         }).store(in: &cancellables)
     }
-
+    
     func testThatTheWeatherPropertyIsInitializedAfterCallingSuperInit() {
         let weatherViewController = WeatherViewController(weatherViewModel: WeatherViewModel(weatherService: GetWeatherAPIOperation(), weatherManagerUsingDataTask: WeatherManagerUsingDataTask()), coordinator: WeatherCoordinator(navigationController: navigationController))
-
+        
         XCTAssertNotNil(weatherViewController.weather)
     }
-
+    
 }
 
 
 
 class MockURLSession: URLSession {
-
+    
     override func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         let response = HTTPURLResponse(url: url, statusCode: 400, httpVersion: "HTTP/1.1", headerFields: nil)
         completionHandler(nil, response, nil)
@@ -177,19 +177,19 @@ extension APIError: Equatable {
 
 class MockWeatherViewModel: WeatherViewModel, WeatherInfo {
     func fetchDaySummary(for city: String) -> AnyPublisher<WeatherData, APIError> {
-
+        
         return Just(WeatherData(name: "London", main: Main(temp: 0.1, temp_min: 0.1, temp_max: 0.1), weather: [Weather(description: "test", id: 22)]))
             .setFailureType(to: APIError.self)
             .eraseToAnyPublisher()
     }
     
     func fetchDaySummary(_ latitude: Double, _ longitude: Double) -> AnyPublisher<WeatherData, APIError> {
-
+        
         return Just(WeatherData(name: "London", main: Main(temp: 0.1, temp_min: 0.1, temp_max: 0.1), weather: [Weather(description: "test", id: 22)]))
             .setFailureType(to: APIError.self)
             .eraseToAnyPublisher()
     }
-
+    
     // Define properties and methods to track interactions with the mock
     var getWeatherForCityCalledWith: String?
     var getWeatherForLatCalledWith: Double?

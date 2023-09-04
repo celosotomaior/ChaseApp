@@ -17,7 +17,7 @@ class  WeatherViewModel : NSObject, ObservableObject {
         self.weatherService = GetWeatherAPIOperation()
         self.weatherManagerUsingDataTask = weatherManagerUsingDataTask
         super.init()
-       
+        
     }
     
     public func canAccessLocation() -> Bool {
@@ -39,7 +39,7 @@ class  WeatherViewModel : NSObject, ObservableObject {
             .map {
                 self.delegate?.didUpdateWeather(self, weather: WeatherModel(id:$0.weather[0].id,city: $0.name,temp: $0.main.temp, tempMax: $0.main.temp_max, tempMin: $0.main.temp_min))
                 self.reusableUserDefaults.set(value: $0.name as String, forKey: UserDefaultKeys.city)
-              return  WeatherModel(id:$0.weather[0].id,city: $0.name,temp: $0.main.temp, tempMax: 0.0, tempMin: 0.0)
+                return  WeatherModel(id:$0.weather[0].id,city: $0.name,temp: $0.main.temp, tempMax: 0.0, tempMin: 0.0)
             }
             .replaceError(with: WeatherModel(id: 0, city: "", temp: 0.0, tempMax: 0.0, tempMin: 0.0))
             .receive(on: DispatchQueue.main)
@@ -72,7 +72,7 @@ class  WeatherViewModel : NSObject, ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] weatherData in
                 guard let self = self else { return }
-
+                
                 // Extract the necessary data and call the delegate method
                 let weatherModel = WeatherModel(id: weatherData.weather[0].id, city: weatherData.name, temp: weatherData.main.temp, tempMax: weatherData.main.temp_max, tempMin: weatherData.main.temp_min)
                 self.reusableUserDefaults.set(value: weatherData.name, forKey: UserDefaultKeys.city)
@@ -80,5 +80,4 @@ class  WeatherViewModel : NSObject, ObservableObject {
             })
             .store(in: &sub)
     }
-
 }

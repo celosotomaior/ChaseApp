@@ -16,17 +16,15 @@ class WeatherCoordinator {
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
-
+    
     func start() {
         // Create and configure the WeatherViewController
         let weatherViewModel = WeatherViewModel(weatherService: GetWeatherAPIOperation(), weatherManagerUsingDataTask: WeatherManagerUsingDataTask())
         let weatherViewController = WeatherViewController(weatherViewModel: weatherViewModel, coordinator: WeatherCoordinator(navigationController: navigationController))
-
-//         Push or present the WeatherViewController
+        
+        // Push or present the WeatherViewController
         navigationController.pushViewController(weatherViewController, animated: true)
     }
-    
-
     
     // We could add many navigateToMethods. I added one as example.In a large project I would use coordinator a lot.
     func navigateToSwiftUIView(coder: NSCoder) -> UIHostingController<WeatherSwiftUIView>? {
@@ -35,7 +33,4 @@ class WeatherCoordinator {
         let hostingController = UIHostingController<WeatherSwiftUIView>(coder: coder, rootView: weatherSwiftUIView)
         return hostingController
     }
-
 }
-
-

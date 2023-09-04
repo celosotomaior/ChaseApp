@@ -3,14 +3,14 @@ import SwiftUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
     var navigationController: UINavigationController?
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Create the main navigation controller
         navigationController = UINavigationController()
-
+        
         // Create and start the WeatherCoordinator
         let weatherCoordinator = WeatherCoordinator(navigationController: navigationController!)
         weatherCoordinator.start()
@@ -18,15 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Create the WeatherViewController and set its coordinator
         let weatherViewController = WeatherViewController(weatherViewModel: viewModel, coordinator: weatherCoordinator)
         weatherViewController.coordinator = weatherCoordinator
-
+        
         // Set the navigation controller as the root view controller
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
-
+        
         return true
-}
-
+    }
+    
     // MARK: UISceneSession Lifecycle
     
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
@@ -46,4 +46,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Set the UserDefault when the user exits the app
     }
 }
-

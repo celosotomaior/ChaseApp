@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct WeatherSwiftUIView: View {
-
+    
     @ObservedObject var weatherViewModel: WeatherViewModel
     @State var cityName: String = ""
     @State var showEmptySearchAlert = false
@@ -45,9 +45,9 @@ struct WeatherSwiftUIView: View {
         .alert(isPresented: $showEmptySearchAlert) {
             Alert(title: Text("City"), message: Text("Enter city name"), dismissButton: .cancel())
         }
- 
+        
     }
-
+    
     func lookupWeather() {
         guard cityName.count > 0 else {
             showEmptySearchAlert = true

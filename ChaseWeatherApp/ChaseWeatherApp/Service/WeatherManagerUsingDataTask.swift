@@ -48,7 +48,7 @@ public struct WeatherManagerUsingDataTask {
             let name = decodedData.name
             let tempMax = decodedData.main.temp_max
             let tempMin = decodedData.main.temp_min
-        
+            
             let weather = WeatherModel(id: id, city: name, temp: temp, tempMax: tempMax, tempMin: tempMin)
             return weather
             
@@ -58,5 +58,3 @@ public struct WeatherManagerUsingDataTask {
         }
     }
 }
-
-
