@@ -82,7 +82,7 @@ class WeatherViewController: UIViewController {
     
 
     @IBSegueAction func addSwiftUIView(_ coder: NSCoder) -> UIViewController? {
-        coordinator?.navigateToChaseWebsite(coder: coder)
+        coordinator?.navigateToSwiftUIView(coder: coder)
     }
     
 }

@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		450F4A832AA46B800092D926 /* ChaseWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450F4A822AA46B800092D926 /* ChaseWebViewController.swift */; };
+		45095B4C2AA63703001FEF56 /* TemperatureSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45095B4B2AA63703001FEF56 /* TemperatureSwiftUIView.swift */; };
+		45095B4E2AA63752001FEF56 /* WeatherIndicatorSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45095B4D2AA63752001FEF56 /* WeatherIndicatorSwiftUIView.swift */; };
+		45095B502AA6378A001FEF56 /* SearchSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45095B4F2AA6378A001FEF56 /* SearchSwiftUIView.swift */; };
+		450F4A832AA46B800092D926 /* WeatherSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450F4A822AA46B800092D926 /* WeatherSwiftUIView.swift */; };
 		450F4A862AA4FAA00092D926 /* ReusableUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450F4A852AA4FAA00092D926 /* ReusableUserDefaults.swift */; };
 		450F4A882AA4FC360092D926 /* UserDefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450F4A872AA4FC360092D926 /* UserDefaultKeys.swift */; };
 		450F4A8E2AA51E880092D926 /* WeatherManagerUsingDataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450F4A8D2AA51E880092D926 /* WeatherManagerUsingDataTask.swift */; };
@@ -46,7 +49,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		450F4A822AA46B800092D926 /* ChaseWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaseWebViewController.swift; sourceTree = "<group>"; };
+		45095B4B2AA63703001FEF56 /* TemperatureSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureSwiftUIView.swift; sourceTree = "<group>"; };
+		45095B4D2AA63752001FEF56 /* WeatherIndicatorSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherIndicatorSwiftUIView.swift; sourceTree = "<group>"; };
+		45095B4F2AA6378A001FEF56 /* SearchSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSwiftUIView.swift; sourceTree = "<group>"; };
+		450F4A822AA46B800092D926 /* WeatherSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherSwiftUIView.swift; sourceTree = "<group>"; };
 		450F4A852AA4FAA00092D926 /* ReusableUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableUserDefaults.swift; sourceTree = "<group>"; };
 		450F4A872AA4FC360092D926 /* UserDefaultKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKeys.swift; sourceTree = "<group>"; };
 		450F4A8D2AA51E880092D926 /* WeatherManagerUsingDataTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherManagerUsingDataTask.swift; sourceTree = "<group>"; };
@@ -101,7 +107,10 @@
 			children = (
 				45F860F32AA4531600081E1F /* Main.storyboard */,
 				45F860F82AA4531B00081E1F /* LaunchScreen.storyboard */,
-				450F4A822AA46B800092D926 /* ChaseWebViewController.swift */,
+				450F4A822AA46B800092D926 /* WeatherSwiftUIView.swift */,
+				45095B4B2AA63703001FEF56 /* TemperatureSwiftUIView.swift */,
+				45095B4D2AA63752001FEF56 /* WeatherIndicatorSwiftUIView.swift */,
+				45095B4F2AA6378A001FEF56 /* SearchSwiftUIView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -339,15 +348,18 @@
 				45F861242AA4545500081E1F /* WeatherService.swift in Sources */,
 				45F861282AA4553000081E1F /* WeatherErrors.swift in Sources */,
 				45F860F22AA4531600081E1F /* WeatherCoordinator.swift in Sources */,
+				45095B4C2AA63703001FEF56 /* TemperatureSwiftUIView.swift in Sources */,
 				45F861232AA4545500081E1F /* WeatherViewController.swift in Sources */,
-				450F4A832AA46B800092D926 /* ChaseWebViewController.swift in Sources */,
+				450F4A832AA46B800092D926 /* WeatherSwiftUIView.swift in Sources */,
 				450F4A862AA4FAA00092D926 /* ReusableUserDefaults.swift in Sources */,
 				45F8611F2AA4541100081E1F /* WeatherViewModel.swift in Sources */,
 				45F860EE2AA4531600081E1F /* AppDelegate.swift in Sources */,
 				450F4A882AA4FC360092D926 /* UserDefaultKeys.swift in Sources */,
 				45F8612A2AA4557800081E1F /* WeatherModel.swift in Sources */,
+				45095B4E2AA63752001FEF56 /* WeatherIndicatorSwiftUIView.swift in Sources */,
 				45F8612C2AA455C300081E1F /* WeatherData.swift in Sources */,
 				450F4A8E2AA51E880092D926 /* WeatherManagerUsingDataTask.swift in Sources */,
+				45095B502AA6378A001FEF56 /* SearchSwiftUIView.swift in Sources */,
 				45F860F02AA4531600081E1F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

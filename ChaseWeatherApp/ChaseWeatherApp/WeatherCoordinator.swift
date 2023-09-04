@@ -14,7 +14,7 @@ protocol WeatherCoordinatorDelegate: AnyObject {
 
 protocol WeatherCoordinatorRouter: AnyObject {
     func start()
-    func navigateToChaseWebsite()
+    func navigateToSwiftUIView()
 }
 class WeatherCoordinator {
     weak var delegate: WeatherCoordinatorDelegate?
@@ -36,10 +36,10 @@ class WeatherCoordinator {
 
     
     // We could add many navigateToMethods. I added one as example.In a large project I would use coordinator a lot.
-    func navigateToChaseWebsite(coder: NSCoder) -> UIHostingController<ChaseWebView>? {
+    func navigateToSwiftUIView(coder: NSCoder) -> UIHostingController<WeatherSwiftUIView>? {
         let weatherViewModel = WeatherViewModel(weatherService: GetWeatherAPIOperation(), weatherManagerUsingDataTask: WeatherManagerUsingDataTask())
-        let chaseWebView = ChaseWebView(weatherViewModel: weatherViewModel)
-        let hostingController = UIHostingController<ChaseWebView>(coder: coder, rootView: chaseWebView)
+        let weatherSwiftUIView = WeatherSwiftUIView(weatherViewModel: weatherViewModel)
+        let hostingController = UIHostingController<WeatherSwiftUIView>(coder: coder, rootView: weatherSwiftUIView)
         return hostingController
     }
 
