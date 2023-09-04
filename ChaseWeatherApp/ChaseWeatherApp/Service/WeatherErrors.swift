@@ -1,10 +1,3 @@
-//
-//  WeatherErrors.swift
-//  ChaseWeatherApp
-//
-//  Created by Marcelo Sotomaior on 03/09/2023.
-//
-
 import Foundation
 
 enum APIError: Error {

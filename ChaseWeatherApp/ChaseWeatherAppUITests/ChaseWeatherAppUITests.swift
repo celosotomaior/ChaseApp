@@ -1,10 +1,3 @@
-//
-//  ChaseWeatherAppUITests.swift
-//  ChaseWeatherAppUITests
-//
-//  Created by Marcelo Sotomaior on 03/09/2023.
-//
-
 import XCTest
 
 final class ChaseWeatherAppUITests: XCTestCase {

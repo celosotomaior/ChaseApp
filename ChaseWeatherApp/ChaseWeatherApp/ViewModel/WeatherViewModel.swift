@@ -1,14 +1,5 @@
-//
-//  WeatherViewModel.swift
-//  Clima
-//
-//  Created by Marcelo Sotomaior on 02/09/2023.
-//  Copyright © 2023 App Brewery. All rights reserved.
-//
-
 import Foundation
 import Combine
-import os
 import CoreLocation
 
 class  WeatherViewModel : NSObject, ObservableObject {

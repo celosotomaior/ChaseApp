@@ -1,10 +1,3 @@
-//
-//  WeatherViewController.swift
-//  ChaseWeatherApp
-//
-//  Created by Marcelo Sotomaior on 03/09/2023.
-//
-
 import UIKit
 import CoreLocation
 import SwiftUI
@@ -32,7 +25,6 @@ class WeatherViewController: UIViewController {
     let weatherWithoutCombine = WeatherManagerUsingDataTask()
     
     let reusableUserDefaults = ReusableUserDefaults()
-    var firstRequestInSession = true
     var combineSwitcherDefault: Bool = true
     
     @IBOutlet weak var trySwiftUIButton: UIButton!

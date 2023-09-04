@@ -1,10 +1,3 @@
-//
-//  WeatherSwiftUIView.swift
-//  ChaseWeatherApp
-//
-//  Created by Marcelo Sotomaior on 03/09/2023.
-//
-
 import SwiftUI
 
 struct WeatherSwiftUIView: View {
