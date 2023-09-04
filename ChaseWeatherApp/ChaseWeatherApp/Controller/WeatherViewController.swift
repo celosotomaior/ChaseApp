@@ -35,10 +35,6 @@ class WeatherViewController: UIViewController {
     init(weatherViewModel: WeatherViewModel, coordinator: WeatherCoordinator) {
         self.weather = weatherViewModel
         super.init(nibName: nil, bundle: nil)
-        if reusableUserDefaults.get(forKey: UserDefaultKeys.firstRequestInSessionKey) == nil {
-            reusableUserDefaults.set(value: true, forKey: UserDefaultKeys.firstRequestInSessionKey)
-        }
-        
         self.coordinator = coordinator // Initialize 'weather' property AFTER calling super.init()
         locationManager.delegate = self
     }
@@ -51,27 +47,28 @@ class WeatherViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+
+        searchTextField.delegate = self
+        searchTextField.autocorrectionType = .no // Disable auto-correction
+        searchTextField.autocapitalizationType = .none // Disable auto-capitalization
+        weather.delegate = self
         
         // Check if the app has been launched before.
         if (reusableUserDefaults.get(forKey: UserDefaultKeys.hasLaunchedBefore) == false) {
             // Set the combineSwitcherKey value to true.
             reusableUserDefaults.set(value: true, forKey: UserDefaultKeys.combineSwitcherKey)
-            
+            // Update the weather to current location in the first app launch in a fresh install
+            locationManager.requestLocation()
             // Set the hasLaunchedBefore value to true.
             reusableUserDefaults.set(value: true, forKey: UserDefaultKeys.hasLaunchedBefore)
+        } else {
+            // Update the weather to the last city if not the first app launch in a fresh install
+            let city: String? = reusableUserDefaults.get(forKey: UserDefaultKeys.city as String)
+            self.weather.getWeather(for: city ?? "")
         }
-        
-        
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.requestLocation()
-        // In your viewDidLoad or setup code
-        searchTextField.delegate = self
-        searchTextField.autocorrectionType = .no // Disable auto-correction
-        searchTextField.autocapitalizationType = .none // Disable auto-capitalization
-        weather.delegate = self
     }
-    
     
     @IBSegueAction func addSwiftUIView(_ coder: NSCoder) -> UIViewController? {
         coordinator?.navigateToSwiftUIView(coder: coder)
@@ -155,7 +152,7 @@ extension WeatherViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager,
                          didUpdateLocations locations: [CLLocation]) {
-        if let lastLocation = locations.last, reusableUserDefaults.get(forKey: UserDefaultKeys.firstRequestInSessionKey) == false {
+        if let lastLocation = locations.last {
             locationManager.stopUpdatingLocation()
             
             if UserDefaultKeys.combineSwitcherValue == true {
@@ -166,11 +163,5 @@ extension WeatherViewController: CLLocationManagerDelegate {
                 return
             }
         }
-        
-        reusableUserDefaults.set(value: false, forKey: UserDefaultKeys.firstRequestInSessionKey)
-        let city: String? = reusableUserDefaults.get(forKey: UserDefaultKeys.city as String)
-        
-        self.weather.getWeather(for: city ?? "")
-        
     }
 }
